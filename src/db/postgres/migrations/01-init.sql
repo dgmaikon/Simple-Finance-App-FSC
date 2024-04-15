@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(50) NOT NULL
 );
 
---create types 
+--create types
 DO $$
 BEGIN
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'transaction_type') THEN
