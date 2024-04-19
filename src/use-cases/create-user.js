@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 
 import { PostgresCreateUserRepository } from "../repositories/postgres/create-users.js";
 
-export class CreateUserCase {
+export class CreateUserUseCase {
     async execute(CreateUserParams) {
         //TODO: verificar se o email ja esta em uso
 
@@ -20,6 +20,7 @@ export class CreateUserCase {
             password: hashedPassword,
         };
 
+        console.log("user", user);
         //chamar o repositorio
         //1º opção
         const postgresCreateUserRepository = new PostgresCreateUserRepository();
