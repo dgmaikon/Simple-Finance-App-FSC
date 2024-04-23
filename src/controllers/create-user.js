@@ -1,5 +1,7 @@
 import { CreateUserUseCase } from "../use-cases/create-user.js";
 import { badRequest, created, serverError } from "./helpers.js";
+import { EmailAlreadyInUserError } from "../erros/users.js";
+
 import validator from "validator";
 
 export class CreateUserController {
@@ -45,6 +47,9 @@ export class CreateUserController {
             //retornar a resposta para o usuario (status code)
             return created(createdUser);
         } catch (error) {
+            if (error instanceof EmailAlreadyInUserError) {
+                return badRequest({ message: error.message });
+            }
             console.log(error);
             return serverError();
         }
