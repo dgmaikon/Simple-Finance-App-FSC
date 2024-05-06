@@ -1,8 +1,8 @@
-import { CreateUserUseCase } from "../use-cases/create-user.js";
-import { badRequest, created, serverError } from "./helpers.js";
-import { EmailAlreadyInUserError } from "../erros/users.js";
+import { CreateUserUseCase } from '../use-cases/create-user.js';
+import { badRequest, created, serverError } from './helpers.js';
+import { EmailAlreadyInUseError } from '../errors/users.js';
 
-import validator from "validator";
+import validator from 'validator';
 
 export class CreateUserController {
     async execute(httpRequest) {
@@ -10,24 +10,24 @@ export class CreateUserController {
             const params = httpRequest.body;
 
             //validar a requisição (campos obrigatórios, tamanho de senha e email)
-            const requiredFieds = [
-                "first_name",
-                "last_name",
-                "email",
-                "password",
+            const requiredFields = [
+                'first_name',
+                'last_name',
+                'email',
+                'password',
             ];
 
-            for (const field of requiredFieds) {
+            for (const field of requiredFields) {
                 if (!params[field] || params[field].trim().length === 0) {
                     return badRequest({ message: `Missing param: ${field}` });
                 }
             }
 
-            const passwordIsValid = params.password.length < 6;
+            const passwordIsNotValid = params.password.length < 6;
 
-            if (passwordIsValid) {
+            if (passwordIsNotValid) {
                 return badRequest({
-                    message: "Password must be at least 6 characters",
+                    message: 'Password must be at least 6 characters',
                 });
             }
 
@@ -35,7 +35,7 @@ export class CreateUserController {
 
             if (!emailIsValid) {
                 return badRequest({
-                    message: "Invalid email. Please provide a valid one",
+                    message: 'Invalid email. Please provide a valid one',
                 });
             }
 
@@ -47,7 +47,7 @@ export class CreateUserController {
             //retornar a resposta para o usuario (status code)
             return created(createdUser);
         } catch (error) {
-            if (error instanceof EmailAlreadyInUserError) {
+            if (error instanceof EmailAlreadyInUseError) {
                 return badRequest({ message: error.message });
             }
             console.log(error);
