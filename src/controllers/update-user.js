@@ -1,5 +1,6 @@
 import validator from 'validator';
 import { badRequest, ok, serverError } from './helpers.js';
+
 import { UpdateUserUseCase } from '../use-cases/update-user.js';
 import { EmailAlreadyInUseError } from '../errors/users.js';
 
@@ -28,6 +29,7 @@ export class UpdateUserController {
             const someFieldIsNotAllowed = Object.keys(updateUserParams).some(
                 (field) => !allowedFields.includes(field),
             );
+            console.log(someFieldIsNotAllowed);
 
             if (someFieldIsNotAllowed) {
                 return badRequest({

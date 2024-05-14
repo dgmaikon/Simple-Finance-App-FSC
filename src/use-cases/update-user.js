@@ -19,7 +19,7 @@ export class UpdateUserUseCase {
             }
         }
 
-        const user = [...updateUserParams];
+        const user = { ...updateUserParams };
 
         if (updateUserParams.password) {
             const hashedPassword = await bcrypt.hash(
