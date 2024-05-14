@@ -1,5 +1,5 @@
 import { badRequest, ok, serverError } from './helpers/http.js';
-import { UpdateUserUseCase } from '../use-cases/update-user.js';
+import { UpdateUserUseCase } from '../use-cases/index.js';
 import { EmailAlreadyInUseError } from '../errors/users.js';
 import {
     invalidIdResponse,
