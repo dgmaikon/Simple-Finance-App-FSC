@@ -11,6 +11,7 @@ import { PostgresGetUserByIdRepository } from './src/repositories/postgres/get-u
 
 import { CreateUserUseCase } from './src/use-cases/create-user.js';
 import { PostgresCreateUserRepository } from './src/repositories/postgres/create-users.js';
+import { PostgresGetUserByEmailRepository } from './src/repositories/postgres/get-user-by-email.js';
 
 const app = express();
 
@@ -29,9 +30,13 @@ app.get('/api/users/:userId', async (request, response) => {
 });
 
 app.post('/api/users', async (request, response) => {
-    const createUserByRepository = new PostgresCreateUserRepository();
+    const getUserByEmailRepository = new PostgresGetUserByEmailRepository();
+    const createUserRepository = new PostgresCreateUserRepository();
 
-    const createUserUseCase = new CreateUserUseCase(createUserByRepository);
+    const createUserUseCase = new CreateUserUseCase(
+        getUserByEmailRepository,
+        createUserRepository,
+    );
 
     const createUserController = new CreateUserController(createUserUseCase);
 
