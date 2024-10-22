@@ -8,6 +8,9 @@ import {
 import { EmailAlreadyInUseError } from '../errors/users.js';
 
 export class CreateUserUseCase {
+    constructor(createdUserRepository) {
+        this.createdUserRepository = createdUserRepository;
+    }
     async execute(CreateUserParams) {
         const postgresGetUserByEmailRepository =
             new PostgresGetUserByEmailRepository();
