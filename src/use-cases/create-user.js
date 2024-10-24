@@ -26,8 +26,6 @@ export class CreateUserUseCase {
             password: hashedPassword,
         };
 
-        console.log('user', user);
-
         const createdUser = await this.createUserRepository.execute(user);
 
         return createdUser;
