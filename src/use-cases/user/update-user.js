@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { EmailAlreadyInUseError } from '../errors/users.js';
+import { EmailAlreadyInUseError } from '../../errors/users.js';
 
 export class UpdateUserUseCase {
     constructor(getUserByEmailRepository, updateUserRepository) {
