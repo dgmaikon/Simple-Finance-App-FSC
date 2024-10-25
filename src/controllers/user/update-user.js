@@ -38,7 +38,6 @@ export class UpdateUserController {
             const someFieldIsNotAllowed = Object.keys(params).some(
                 (field) => !allowedFields.includes(field),
             );
-            console.log(someFieldIsNotAllowed);
 
             if (someFieldIsNotAllowed) {
                 return badRequest({

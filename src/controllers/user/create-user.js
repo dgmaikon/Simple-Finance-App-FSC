@@ -17,7 +17,6 @@ export class CreateUserController {
         try {
             const params = httpRequest.body;
 
-            //validar a requisição (campos obrigatórios, tamanho de senha e email)
             const requiredFields = [
                 'first_name',
                 'last_name',
