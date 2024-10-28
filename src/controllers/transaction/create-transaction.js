@@ -1,8 +1,10 @@
-import validator from 'validator';
 import {
-    badRequest,
+    checkIfAmountIsValid,
     checkIfIdIsValid,
+    checkIfTypeIsValid,
     created,
+    invalidAmountReponse,
+    invalideTypeReponse,
     invalidIdResponse,
     requiredFieldIsMissingReponse,
     serverError,
@@ -39,31 +41,18 @@ export class CreateTransactionController {
                 return invalidIdResponse();
             }
 
-            const amountIsValid = validator.isCurrency(
-                params.amount.toString(),
-                {
-                    digits_after_decimal: [2],
-                    allow_negatives: false,
-                    decimal_separator: '.',
-                },
-            );
+            const amountIsValid = checkIfAmountIsValid(params.amount);
 
             if (!amountIsValid) {
-                return badRequest({
-                    message: 'The amount must be a valid currency.',
-                });
+                return invalidAmountReponse();
             }
 
             const type = params.type.trim().toUpperCase();
 
-            const tipeIsValid = ['EARNING', 'EXPENSE', 'INVESTMENT'].includes(
-                type,
-            );
+            const typeIsValid = checkIfTypeIsValid(params.type);
 
-            if (!tipeIsValid) {
-                return badRequest({
-                    message: 'The type must be EARNING, EXPENSE or INVESTMENT.',
-                });
+            if (!typeIsValid) {
+                return invalideTypeReponse();
             }
 
             const transaction = await this.createTransactionUseCase.execute({
