@@ -8,6 +8,12 @@ export const invalidIdResponse = () =>
         message: 'The Provide id is not valid',
     });
 
+export const requiredFieldIsMissingReponse = (field) => {
+    badRequest({
+        message: `The field ${field} is required`,
+    });
+};
+
 export const checkIfIsString = (value) => typeof value === 'string';
 
 export const validateRequiredFields = (params, requiredFields) => {
