@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { UserNotFoundError } from '../../errors/users';
 
-export class CreateTransaction {
+export class CreateTransactionUseCase {
     constructor(createTransactionRepository, getUserByIdRepository) {
         this.createTransactionRepository = createTransactionRepository;
         this.getUserByIdRepository = getUserByIdRepository;
